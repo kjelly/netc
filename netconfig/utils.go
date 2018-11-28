@@ -8,8 +8,7 @@ import (
 	"github.com/kjelly/netc/node"
 )
 
-func Generate(template string, n node.Node) {
-	fmt.Printf("%v\n", n)
+func Generate(template string, n node.Node) map[string]string {
 	tpl, err := pongo2.FromString(template)
 	if err != nil {
 		panic(err)
@@ -17,6 +16,7 @@ func Generate(template string, n node.Node) {
 	// Now you can render the template with the given
 	// pongo2.Context how often you want to.
 	var context pongo2.Context
+	r := make(map[string]string)
 
 	firstDeviceName := ""
 	for i, ifname := range n.Ifnames {
@@ -45,7 +45,8 @@ func Generate(template string, n node.Node) {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(out) // Output: Hello Fred!
+		r[fmt.Sprintf("ifcfg-%s", ifname)] = out
 
 	}
+	return r
 }

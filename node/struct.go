@@ -2,9 +2,9 @@
 package node
 
 type Node struct {
-	TargetIP string
+	TargetIP string `json:"target_ip"`
 	User     string
-	KeyPath  string
+	KeyPath  string `json:"key_path"`
 	Kind     string
 
 	Ifnames  []string
